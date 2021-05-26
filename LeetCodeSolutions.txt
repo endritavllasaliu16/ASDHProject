@@ -1,0 +1,217 @@
+1550. Three Consecutive Odds
+
+class Solution {
+public:
+	bool threeConsecutiveOdds(vector<int>& arr) {
+		  if(arr.size()>2){
+            for(int i=0; i<arr.size()-2; i++){
+                if(arr[i]%2 != 0 && arr[i+1]%2 != 0 && arr[i+2]%2 != 0)
+                    return true;
+            }
+        }
+        return false;
+    }
+};
+
+
+
+1351. Count Negative Numbers in a Sorted Matrix
+
+class Solution {
+public:
+	int countNegatives(vector<vector<int>>& grid) {
+		int negative = 0, n = grid.size();
+        int m=grid[0].size();
+		for (int i = 0; i < n; i++)
+		{
+			for (int j = 0; j < m; j++)
+			{
+				if (grid[i][j] < 0)
+					negative++;
+			}
+		}
+		return negative;
+
+	}
+};
+
+
+167. Two Sum II - Input array is sorted
+
+class Solution {
+public:
+   vector <int> twoSum(vector<int>& numbers, int target) {
+        int i{ 0 }, j = numbers.size() - 1;
+        while (i < j) {
+            int sum = numbers[i] + numbers[j];
+            if (sum == target)
+                break;
+            (sum > target) ? j-- : i++;
+        }
+        return { i + 1,j + 1 };
+    }
+};
+
+
+
+215. Kth Largest Element in an Array
+
+class Solution {
+public:
+    int findKthLargest(vector<int>& nums, int k) {
+        priority_queue<int> p(nums.begin(),nums.end());
+        for(int i = 0; i < k -1; i++){
+            p.pop();
+        }
+        return p.top();
+    }
+};
+
+
+
+9. Palindrome Number
+class Solution {
+public:
+    bool isPalindrome(int num) {
+     {
+   long int rev = 0, val;
+    val = num;
+    while (num > 0) {
+        rev = rev * 10 + num % 10;
+        num = num / 10;
+    }
+    if (val == rev)
+        return true;
+    else
+       return false;
+}
+    }
+};
+
+
+
+728. Self Dividing Numbers
+
+class Solution {
+public:
+    vector<int> selfDividingNumbers(int left, int right) {
+        vector<int> results;
+        for (int i = left; i <= right; i++) {
+            int val = i;
+            while (val > 0) {
+                int digit = val % 10;
+                if (digit == 0 || i % digit != 0) {
+                    break;
+                }
+                val /= 10;
+            }
+            if (val == 0) {
+                results.push_back(i);
+            }
+        }
+        return results;
+    }
+};
+
+
+
+
+1221. Split a String in Balanced Strings
+
+class Solution {
+public:
+    int balancedStringSplit(string s) {
+        int r = 0, l = 0, count = 0;
+        for (int i = 0; i < s.length(); i++) {
+            if (s[i] == 'R') {
+                r++;
+            }
+            if (s[i] == 'L') {
+                l++;
+            }
+            if (l == r) {
+                count++;
+            }
+        }
+        return count;
+    }
+};
+
+
+
+1470. Shuffle the Array
+
+class Solution {
+public:
+    vector<int> shuffle(vector<int>& nums, int n) {
+        vector<int> result;
+        int odd = 0;
+        int even = n;
+        
+        for (int i = 0; i < n*2; i++){
+            if (i % 2 == 0) {
+                result.push_back(nums[odd]);
+                odd++;
+            }
+            else {
+                result.push_back(nums[even]);
+                even++;
+            }
+        }
+
+        return result;
+    }
+};
+977. Squares of a Sorted Array
+
+class Solution {
+public:
+    vector<int> sortedSquares(vector<int>& A) {
+
+        int n = A.size(), i = 0, j = n -1;
+        vector<int> ret;
+        while(i <= j)
+            if(abs(A[i]) > abs(A[j])){ 
+                ret.push_back(A[i] * A[i]);
+                i++;
+            }
+            else{
+                ret.push_back(A[j] * A[j]);
+                j--;
+            }
+        reverse(ret.begin(), ret.end());
+        return ret;
+    }
+};
+
+
+
+322. Coin Change
+
+class Solution {
+public:
+    int coinChange(vector<int>& coins, int amount) {
+        int dp[amount+1];
+        dp[0]=0;
+        for(int i=1;i<=amount;++i)
+            dp[i] = INT_MAX;
+
+        int len = coins.size();
+
+        for (int i = 1; i <= amount; ++i)
+        {
+            for (int j = 0; j < len; ++j)
+            {
+                if(coins[j] <= i){
+                    int rest = dp[i-coins[j]];
+                   
+                    if(rest != INT_MAX && rest+1<dp[i]){
+                      
+                        dp[i] = rest+1;
+                    }
+                }
+            }
+        }
+        return dp[amount]==INT_MAX ? -1 : dp[amount];
+    }
+};
